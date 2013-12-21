@@ -1,159 +1,261 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+
 <head>
-<meta charset="utf-8">
-<script src = "http://code.jquery.com/jquery-1.9.1.js"></script>
-<script>
-    //display previous searches
-    $(function display()
-    {
-        $("#query1-2 span").html(localStorage.getItem('query1'));
-        $("#query3-4 span").html(localStorage.getItem('query2'));
-        $("#query5-6 span").html(localStorage.getItem('query3'));
-    });
-    //set default greyed-out text in query fields, and erase when clicked
-    function inputFocus(i){
-      if(i.value==i.defaultValue){ i.value=""; i.style.color="#000"; }
-    }
-    function inputBlur(i){
-      if(i.value==""){ i.value=i.defaultValue; i.style.color="#888"; }
-    }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Gaming PC</title>
 
-    //set endDate as default current day
-    $(document).ready(function(){
-        var now = new Date();
-        var month = (now.getMonth() + 1);               
-        var day = now.getDate();
-        if(month < 10) 
-            month = "0" + month;
-        if(day < 10) 
-            day = "0" + day;
-        var today = now.getFullYear() + '-' + month + '-' + day;
-        $('#endDate').val(today);
-        var first = now.getFullYear() + '-' + month + '-' + '01';
-        $('#startDate').val(first);
-    });
-      
-    //when submitted
-    function testResults (form)
-    {
-        var Hashtag1 = form.textfield.value;
-        var Hashtag2 = form.textfield2.value;
+  <!-- If you are using CSS version, only link these 2 files, you may add app.css to use for your overrides if you like. -->
+  <link rel="stylesheet" href="/stylesheets/normalize.css">
+  <link rel="stylesheet" href="/stylesheets/foundation.css">
 
-        //store variables
-        localStorage.setItem('query3', localStorage.getItem('query2'));
-        localStorage.setItem('query2', localStorage.getItem('query1'));
-        localStorage.setItem('query1', Hashtag1 + '  #' + Hashtag2);
-    }
-   //check for location data
-    if (navigator.geolocation)
-    {
-      navigator.geolocation.getCurrentPosition(success,error);
-       console.log("Has location.");                     
-     }
-      else
-     {
-        console.log("Geolocation not supported.");
-      }           
-    function success(position){
-      $(function(){              
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
-        $('#lat').val(lat);
-        $('#lon').val(lon);
-      });
-     };            
-    function error(){
-      alert('error');
-    }    
-    //display top ten text
-    var xmlhttp;
-    if (window.XMLHttpRequest)
-     {// code for IE7+, Firefox, Chrome, Opera, Safari
-      xmlhttp=new XMLHttpRequest();
-     }
-    else
-     {// code for IE6, IE5
-       xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-     }
-    xmlhttp.onreadystatechange=function()
-    {
-     document.getElementById("update").innerHTML=xmlhttp.responseText;
-    }
-      xmlhttp.open("GET","/hashlist",true);
-      xmlhttp.send();
-</script>
-<link rel="stylesheet" type="text/css" href="/stylesheets/soaringStyle.css">
-<title>Soaring Tunes</title>
+  <script src="/scripts/vendor/custom.modernizr.js"></script>
+
 </head>
- 
-<div id="wrap">
 <body>
-<div class="header">
-  <h1>Soaring Tunes</h1>
-</div>
-<form id="form1" name="form1" method="post" action= "/form">
-  <h3>Which #hashtags would you like to search?</h3>
-  <p>
-  <span>
-    <label for="textfield">Query 1: #</label>
-    <input type="text" name="textfield" id="textfield" Value="Soaring" style="color:#888;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-  </span>
-  <span>
-    <label for="textfield2">Query 2: #</label>
-    <input type="text" name="textfield2" id="textfield2" Value="Tunes" style="color:#888;" onfocus="inputFocus(this)" onblur="inputBlur(this)">
-  </span>
-  </p>
-  <h3>From which date range would you like results?</h3>
-  <p>
-  <span>
-    <label for="date">Start Date:</label>
-    <input type="date" name="startDate" id="startDate">
-  </span>
-  <span>
-    <label for="date2">End Date:</label>
-    <input type="date" name="endDate" id="endDate">
-  </span>
-  </p>
-  <h3>Search Radius and Current Location</h3>
-  <p>
-    <span>
-    <label for="number"> Radius (miles): </label>
-    <input name="number" type="number" id="number" max="250" min="1" value="25">
-    </span>
-  </p>
-  <p>
-  <span>
-    <label for="lat">Lat:</label>
-    <input type="text" name="lat" id="lat">
-  </span>
-  <span>
-    <label for="lon">Lon:</label>
-    <input type="text" name="lon" id="lon">
-  </span>
-  </p>
-  <p>
-    <input type="submit" name="submit" id="submit" value="Submit" onClick="testResults(this.form)">
-  </p>
-</form>
-<div class="lastSearches">
-  <h2>Your last 3 Searches</h2>
-  <ul>
-    <li><div id="query1-2">#<span></span></div></li>
-    <li><div id="query3-4">#<span></span></div></li>
-    <li><div id="query5-6">#<span></span></div></li>
-  </ul>
-</div>
-  <h2>Top 10 Most Popular Searches</h2>
-<div id="update">
-<!--display top 10 with loop from ajaxed file -->
-</div>
-<p>&nbsp;</p>
-</body>
-</div>
-<footer>
-<span><a href="http://developers.soundcloud.com/docs"><img src = "http://developers.soundcloud.com/assets/powered_by_black.png"></a></span>
-<span>&copy; Arrowsmith 2013</span>
-</footer>
-      
+
+  <!-- body content here -->
+
+  <script src="/scripts/vendor/jquery.js"></script>
+  <script src="/scripts/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  <!-- Navigation -->
+ 
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href="#">
+            Top Bar Title
+          </a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+    </ul>
+ 
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="divider"></li>
+        <li class="has-dropdown">
+          <a href="#">Main Item 1</a>
+          <ul class="dropdown">
+            <li><label>Section Name</label></li>
+            <li class="has-dropdown">
+              <a href="#" class="">Has Dropdown, Level 1</a>
+              <ul class="dropdown">
+                <li><a href="#">Dropdown Options</a></li>
+                <li><a href="#">Dropdown Options</a></li>
+                <li><a href="#">Level 2</a></li>
+                <li><a href="#">Subdropdown Option</a></li>
+                <li><a href="#">Subdropdown Option</a></li>
+                <li><a href="#">Subdropdown Option</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Dropdown Option</a></li>
+            <li><a href="#">Dropdown Option</a></li>
+            <li class="divider"></li>
+            <li><label>Section Name</label></li>
+            <li><a href="#">Dropdown Option</a></li>
+            <li><a href="#">Dropdown Option</a></li>
+            <li><a href="#">Dropdown Option</a></li>
+            <li class="divider"></li>
+            <li><a href="#">See all →</a></li>
+          </ul>
+        </li>
+        <li class="divider"></li>
+        <li><a href="#">Main Item 2</a></li>
+        <li class="divider"></li>
+        <li class="has-dropdown">
+          <a href="#">Main Item 3</a>
+          <ul class="dropdown">
+            <li><a href="#">Dropdown Option</a></li>
+            <li><a href="#">Dropdown Option</a></li>
+            <li><a href="#">Dropdown Option</a></li>
+            <li class="divider"></li>
+            <li><a href="#">See all →</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </nav>
+ 
+  <!-- End Top Bar -->
+ 
+  <div class="row">
+    <div class="large-12 columns">
+ 
+    <!-- Content Slider -->
+ 
+      <div class="row">
+        <div class="large-12 hide-for-small">
+ 
+          <div id="featured" data-orbit>
+              <img src="http://placehold.it/1200x500&text=Slide Image 1" alt="slide image">
+              <img src="http://placehold.it/1200x500&text=Slide Image 2" alt="slide image">
+              <img src="http://placehold.it/1200x500&text=Slide Image 3" alt="slide image">
+            </div>
+ 
+      </div>
+    </div>
+ 
+    <!-- End Content Slider -->
+ 
+    <!-- Mobile Header -->
+ 
+      <div class="row">
+        <div class="large-12 columns show-for-small">
+ 
+          <img src="http://placehold.it/1200x700&text=Mobile Header">
+ 
+        </div>
+      </div><br>
+ 
+    <!-- End Mobile Header -->
+ 
+ 
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <!-- Shows -->
+            <div class="large-4 small-6 columns">
+ 
+              <h4>Upcoming Shows</h4><hr>
+ 
+              <div class="row">
+                <div class="large-1 column">
+                  <img src="http://placehold.it/50x50&text=[img]">
+                </div>
+ 
+                <div class="large-9 columns">
+                  <h5><a href="#">Venue Name</a></h5>
+                  <h6 class="subheader show-for-small">Doors at 00:00pm</h6>
+                </div>
+              </div><hr>
+ 
+              <div class="hide-for-small">
+                <div class="row">
+                  <div class="large-1 column">
+                    <img src="http://placehold.it/50x50&text=[img]">
+                  </div>
+ 
+                  <div class="large-9 columns">
+                    <h5 class="subheader"><a href="#">Venue Name</a></h5>
+                  </div>
+                </div><hr>
+ 
+                <div class="row">
+                  <div class="large-1 column">
+                    <img src="http://placehold.it/50x50&text=[img]">
+                  </div>
+ 
+                  <div class="large-9 columns">
+                    <h5 class="subheader"><a href="#">Venue Name</a></h5>
+                  </div>
+                </div><hr>
+ 
+                <div class="row">
+                  <div class="large-1 column">
+                    <img src="http://placehold.it/50x50&text=[img]">
+                  </div>
+ 
+                  <div class="large-9 columns">
+                    <h5 class="subheader"><a href="#">Venue Name</a></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Shows -->
+ 
+ 
+            <!-- Image -->
+ 
+            <div class="large-4 small-6 columns">
+              <img src="http://placehold.it/300x465&text=Image">
+            </div>
+ 
+            <!-- End Image -->
+ 
+ 
+            <!-- Feed -->
+ 
+            <div class="large-4 small-12 columns">
+ 
+              <h4>Blog</h4><hr>
+              <div class="panel">
+                <h5><a href="#">Post Title 1</a></h5>
+ 
+                <h6 class="subheader">
+                  Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Suspendisse ultrices ornare tempor...
+                </h6>
+ 
+                <h6><a href="#">Read More »</a></h6>
+              </div>
+ 
+              <div class="panel hide-for-small">
+                <h5><a href="#">Post Title 2 »</a></h5>
+              </div>
+ 
+              <div class="panel hide-for-small">
+                <h5><a href="#">Post Title 3 »</a></h5>
+              </div>
+ 
+              <a href="#" class="right">Go To Blog »</a>
+ 
+            </div>
+ 
+            <!-- End Feed -->
+ 
+          </div>
+        </div>
+      </div>
+ 
+    <!-- End Content -->
+ 
+ 
+    <!-- Footer -->
+ 
+      <footer class="row">
+        <div class="large-12 columns"><hr>
+            <div class="row">
+ 
+              <div class="large-6 columns">
+                  <p>© Copyright no one at all. Go to town.</p>
+              </div>
+ 
+              <div class="large-6 small-12 columns">
+                  <ul class="inline-list right">
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                    <li><a href="#">Link 4</a></li>
+                  </ul>
+              </div>
+ 
+            </div>
+        </div>
+      </footer>
+ 
+    <!-- End Footer -->
+ 
+    </div>
+  </div>
+ 
+  <script>
+  document.write('<script src=/scripts/vendor/' +
+  ('__proto__' in {} ? 'jquery') +
+  '.js><\/script>')
+  </script>
+  <script src="/scripts/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+<!-- End Footer -->
+    
+</body>      
 </html>
